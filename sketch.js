@@ -33,9 +33,9 @@ function draw() {
 		text('AUTO JUMP ACTIVE!!!', width/2, 390);
 	}
 	textAlign(RIGHT);
-	text('HIGH SCORE: '+ ('000'+ highscore).slice(-3), width - 25, 25);
-	text('SCORE: ' + ('000'+ score).slice(-3), width - 25, 50);
-	text('FALLS: ' + ('000'+ deaths).slice(-3), width - 25, 75);
+	text('HIGH SCORE: '+ ('000'+ highscore).slice(-3), width - 5, 25);
+	text('SCORE: ' + ('000'+ score).slice(-3), width - 5, 50);
+	text('FALLS: ' + ('000'+ deaths).slice(-3), width - 5, 75);
 
 	//Platforms
 	for (i = 0; i < platforms.length; i++) {
