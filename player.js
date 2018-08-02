@@ -13,7 +13,7 @@ function Player() {
     //Construct person
 
     //Body
-    fill(50);
+    fill(25,100,25);
     rect(this.x, this.y - 10, scl, scl, 5);
     rect(this.x + 10, this.y + 20, 8, 10);
 
