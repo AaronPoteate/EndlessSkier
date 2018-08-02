@@ -1,5 +1,5 @@
 var scl = 30, acceleration = 10;
-var score = 0, highscore = 0, deaths = 0;
+var score = 0, highscore = 0, deaths = 0, run = true;
 var snow = [], platforms = [];
 var snowMax = 30, snowSpot = 0, platformsMax = 100, platformsSpot = 0;
 function preload() {
@@ -28,6 +28,11 @@ function draw() {
 	//GUI
 	background(200);
 	fill(0);
+	if(run) {
+		textAlign(CENTER);
+		text('AUTO JUMP ACTIVE!!!', width/2, 390);
+	}
+	textAlign(RIGHT);
 	text('HIGH SCORE: '+ ('000'+ highscore).slice(-3), width - 25, 25);
 	text('SCORE: ' + ('000'+ score).slice(-3), width - 25, 50);
 	text('FALLS: ' + ('000'+ deaths).slice(-3), width - 25, 75);
@@ -42,7 +47,9 @@ function draw() {
 
 //Player
 	player.update(platforms);
-  player.autoRun(platforms);
+	if(run) {
+	  player.autoRun(platforms);
+	}
 	player.show();
 	acceleration += 0.0001
 
@@ -64,8 +71,11 @@ function draw() {
 }
 
 function keyPressed() {
-	if (keyCode === UP_ARROW ||keyCode === 32 && player.onPlat === true) {
+	if (keyCode === UP_ARROW && player.onPlat === true ||keyCode === 32 && player.onPlat === true) {
 		player.yaccel = -20;
+	}
+	if(keyCode === ENTER) {
+		run = !run;
 	}
 }
 
