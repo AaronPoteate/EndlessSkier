@@ -1,13 +1,14 @@
-var scl = 30, acceleration = 10;
-var score = 0, highscore = 0, deaths = 0, run = true;
+var scl = 30, acceleration = 12;
+var score = 0, highscore = 0, falls = 0, run = true;
 var snow = [], platforms = [];
 var snowMax = 30, snowSpot = 0, platformsMax = 100, platformsSpot = 0;
+
 function preload() {
-	fontRetro = loadFont('assets/PressStart2P-Regular.ttf');
+	fontRetro = loadFont('assets/PressStart2P-Regular.ttf');  //https://fonts.google.com/specimen/Press+Start+2P
 }
 
 function setup() {
-	createCanvas(600, 400);
+	createCanvas(600,400);
 	player = new Player();
 	platforms[0] = new Platform(-400, 500, 600, 100);
 	for(var i = 1; i < platformsMax; i++) {
@@ -27,15 +28,23 @@ function draw() {
 
 	//GUI
 	background(200);
-	fill(0);
+	textAlign(CENTER);
+	fill(0,50);
+	rect(0, 0, 180, 65);
 	if(run) {
-		textAlign(CENTER);
-		text('AUTO JUMP ACTIVE!!!', width/2, 390);
+		fill(0);
+		text('TURN', 90,  30);
+		text('AUTO OFF', 90,  55);
+		text('AUTO JUMP ACTIVE!!!', width/2, height - 5);
+	} else {
+		fill(0);
+		text('TURN', 90,  30);
+		text('AUTO ON', 90,  55);
 	}
 	textAlign(RIGHT);
 	text('HIGH SCORE: '+ ('000'+ highscore).slice(-3), width - 5, 25);
 	text('SCORE: ' + ('000'+ score).slice(-3), width - 5, 50);
-	text('FALLS: ' + ('000'+ deaths).slice(-3), width - 5, 75);
+	text('FALLS: ' + ('000'+ falls).slice(-3), width - 5, 75);
 
 	//Platforms
 	for (i = 0; i < platforms.length; i++) {
@@ -70,6 +79,17 @@ function draw() {
 	}
 }
 
+function mousePressed() {
+if(mouseY < 65) {
+	if(mouseX < 180) {
+		run = !run;
+	}
+}
+	if (player.onPlat === true) {
+		player.yaccel = -20;
+	}
+}
+
 function keyPressed() {
 	if (keyCode === UP_ARROW && player.onPlat === true ||keyCode === 32 && player.onPlat === true) {
 		player.yaccel = -20;
@@ -84,8 +104,8 @@ function reset() {
 	if(score> highscore) { highscore = score;}
 	score = 0;
 	acceleration = 10;
-	deaths++;
-  	player.y = 0;
+	falls++;
+  player.y = 0;
 	player.round = 0;
 	platforms[0] = new Platform(-400, 500, 600, 100);
 	for(var i = 1; i < platformsMax; i++) {
