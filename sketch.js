@@ -83,8 +83,9 @@ function reset() {
   console.log("Game Over");
 	if(score> highscore) { highscore = score;}
 	score = 0;
+	acceleration = 10;
 	deaths++;
-  player.y = 0;
+  	player.y = 0;
 	player.round = 0;
 	platforms[0] = new Platform(-400, 500, 600, 100);
 	for(var i = 1; i < platformsMax; i++) {
